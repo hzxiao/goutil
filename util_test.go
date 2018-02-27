@@ -1,4 +1,4 @@
-package util
+package goutil
 
 import (
 	"github.com/hzxiao/goutil/assert"
@@ -8,21 +8,21 @@ import (
 
 type TestStruct struct {
 	Name string
-	Age  int
+	Age  int64
 }
 
 func TestStruct2Map(t *testing.T) {
 	//1
 	t1 := TestStruct{Name: "name", Age: 2}
 	m1 := Struct2Map(t1)
-	if m1["Name"].(string) != t1.Name || m1["Age"].(int) != t1.Age {
+	if m1.GetString("Name") != t1.Name || m1.GetInt64("Age") != t1.Age {
 		t.Error("error")
 	}
 
 	//2 struct pointer
 	t2 := &t1
 	m2 := Struct2Map(t2)
-	if m2["Name"].(string) != t2.Name || m2["Age"].(int) != t2.Age {
+	if m2.GetString("Name") != t2.Name || m2.GetInt64("Age") != t2.Age {
 		t.Error("error")
 	}
 

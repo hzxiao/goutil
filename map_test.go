@@ -1,4 +1,4 @@
-package util
+package goutil
 
 import (
 	"github.com/hzxiao/goutil/assert"
