@@ -114,8 +114,8 @@ func Error(t *testing.T, err error) bool {
 func NoError(t *testing.T, err error) bool {
 	if err != nil {
 		_, file, line, _ := runtime.Caller(1)
-		t.Errorf("\033[31m%s:%d:\n\n\t   <nil> (expected)\n\n\t!= error (actual)\033[39m\n\n",
-			filepath.Base(file), line)
+		t.Errorf("\033[31m%s:%d:\n\n\t   <nil> (expected)\n\n\t!= error:%v (actual)\033[39m\n\n",
+			filepath.Base(file), line, err)
 		return false
 	}
 	return true
