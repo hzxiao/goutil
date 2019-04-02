@@ -9,6 +9,28 @@ record version information to Go program. include:
 
 ## Usage
 
+edit follow go file:
+
+```go
+package main
+
+import (
+	"github.com/hzxiao/goutil/version"
+)
+
+var showVersion = true
+
+func main() {
+	if showVersion {
+		err := version.Print()
+		if err != nil {
+			panic(err)
+		}
+		return
+	}
+}
+```
+
 provider follow ldflags when build
 
 ```shell
