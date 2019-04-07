@@ -75,6 +75,9 @@ func TestMap_Get(t *testing.T) {
 	assert.Len(t, m.GetMapArray("mapArray"), 3)
 
 	assert.Len(t, m, 20)
+
+	m.Set("bytes", []byte("bytes"))
+	assert.Equal(t, []byte("bytes"), m.Get("bytes"))
 }
 
 func TestMap_GetP(t *testing.T) {
