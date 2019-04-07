@@ -29,7 +29,7 @@ func NotNil(t *testing.T, obj interface{}) {
 	if isNil(obj) {
 		_, file, line, _ := runtime.Caller(1)
 		t.Logf("\033[31m%s:%d:\n\n\tExpected value not to be <nil>\033[39m\n\n",
-			filepath.Base(file), line, obj)
+			filepath.Base(file), line)
 		t.FailNow()
 	}
 }
