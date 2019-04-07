@@ -47,6 +47,5 @@ func TestError(t *testing.T) {
 	var err error
 
 	err = errors.New("some err")
-
 	True(t, Error(t, err))
 }
