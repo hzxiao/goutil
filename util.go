@@ -269,3 +269,26 @@ func Struct2Json(s interface{}) string {
 
 	return string(bys)
 }
+
+func BytesReverse(bytes []byte) []byte {
+	ret := make([]byte, len(bytes))
+	copy(ret, bytes)
+	for i, j := 0, len(ret)-1; i < j; i, j = i+1, j-1 {
+		ret[i], ret[j] = ret[j], ret[i]
+	}
+	return ret
+}
+
+func RemoveDupString(s []string) []string {
+	m := map[string]struct{}{}
+	var result []string
+	for _, v := range s {
+		_, found := m[v]
+		if !found {
+			result = append(result, v)
+		}
+		m[v] = struct{}{}
+	}
+
+	return result
+}
