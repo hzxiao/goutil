@@ -153,6 +153,14 @@ func (m Map) GetMapArrayP(path string) []Map {
 	return MapArrayV(v)
 }
 
+func (m Map) Keys() []string {
+	var keys []string
+	for k := range m {
+		keys = append(keys, k)
+	}
+	return keys
+}
+
 func getValueByPath(m Map, path string) (interface{}, error) {
 	path = strings.TrimPrefix(path, "/")
 	keys := strings.Split(path, "/")
