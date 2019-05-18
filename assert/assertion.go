@@ -43,6 +43,7 @@ func Nil(t *testing.T, obj interface{}) {
 		t.FailNow()
 	}
 }
+
 func isNil(obj interface{}) bool {
 	if obj == nil {
 		return true
@@ -107,6 +108,7 @@ func Error(t *testing.T, err error) bool {
 		_, file, line, _ := runtime.Caller(1)
 		fmt.Printf("\033[31m%s:%d:\n\n\t   error (expected)\n\n\t!= <nil> (actual)\033[39m\n\n",
 			filepath.Base(file), line)
+		t.FailNow()
 		return false
 	}
 	return true
@@ -117,6 +119,7 @@ func NoError(t *testing.T, err error) bool {
 		_, file, line, _ := runtime.Caller(1)
 		fmt.Printf("\033[31m%s:%d:\n\n\t   <nil> (expected)\n\n\t!= error:%v (actual)\033[39m\n\n",
 			filepath.Base(file), line, err)
+		t.FailNow()
 		return false
 	}
 	return true
