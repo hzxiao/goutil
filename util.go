@@ -292,3 +292,12 @@ func RemoveDupString(s []string) []string {
 
 	return result
 }
+
+func Map2Struct(m Map, s interface{}) error {
+	b, err := json.Marshal(m)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(b, &s)
+}

@@ -163,3 +163,21 @@ func TestInt64E(t *testing.T) {
 	_, err = Int64E("aa")
 	assert.Error(t, err)
 }
+
+func TestMap2Struct(t *testing.T) {
+	s := &struct {
+		Name string `json:"name,omitempty"`
+		Age  int    `json:"age,omitempty"`
+		Sex  int    `json:"sex"`
+	}{
+		Name: "tom",
+		Sex:  1,
+	}
+
+	err := Map2Struct(Map{"age": 1}, s)
+	assert.NoError(t, err)
+	assert.Equal(t, "tom", s.Name)
+	assert.Equal(t, 1, s.Age)
+	assert.Equal(t, 1, s.Sex)
+
+}
