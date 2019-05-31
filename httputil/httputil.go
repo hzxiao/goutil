@@ -54,10 +54,14 @@ type Client struct {
 	http.Client
 }
 
+//Get send http request with GET method.
+//stores the result in the value pointed to by result according to the resultType.
 func (c *Client) Get(url string, returnType int, result interface{}) (err error) {
 	return c.GetWithHeader(url, nil, returnType, result)
 }
 
+//GetWithHeader send http request with GET method and given header
+//stores the result in the value pointed to by result according to the resultType.
 func (c *Client) GetWithHeader(url string, header map[string]string, returnType int, result interface{}) (err error) {
 	code, _, err := c.request("GET", url, header, nil, returnType, result)
 	if err != nil {
@@ -70,6 +74,9 @@ func (c *Client) GetWithHeader(url string, header map[string]string, returnType 
 	return
 }
 
+//PostForm issues a POST to the specified URL,
+//with data's keys and values URL-encoded as the request body.
+//stores the result in the value pointed to by result according to the resultType.
 func (c *Client) PostForm(url string, form goutil.Map, returnType int, result interface{}) error {
 	values := url2.Values{}
 	for k := range form {
@@ -79,9 +86,12 @@ func (c *Client) PostForm(url string, form goutil.Map, returnType int, result in
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	return c.PostWithHeader(url, header, strings.NewReader(values.Encode()), returnType, &result)
+	return c.PostWithHeader(url, header, strings.NewReader(values.Encode()), returnType, result)
 }
 
+//PostJSON issues a POST to the specified URL,
+//with the JSON-encoded data as the request body.
+//stores the result in the value pointed to by result according to the resultType.
 func (c *Client) PostJSON(url string, body interface{}, returnType int, result interface{}) error {
 	header := map[string]string{
 		"Content-Type": "application/json",
@@ -91,9 +101,12 @@ func (c *Client) PostJSON(url string, body interface{}, returnType int, result i
 	if err != nil {
 		return err
 	}
-	return c.PostWithHeader(url, header, bytes.NewReader(bys), returnType, &result)
+	return c.PostWithHeader(url, header, bytes.NewReader(bys), returnType, result)
 }
 
+//PostXML issues a POST to the specified URL,
+//with the XML-encoded data as the request body.
+//stores the result in the value pointed to by result according to the resultType.
 func (c *Client) PostXML(url string, body interface{}, returnType int, result interface{}) error {
 	header := map[string]string{
 		"Content-Type": "application/xml",
@@ -103,11 +116,14 @@ func (c *Client) PostXML(url string, body interface{}, returnType int, result in
 	if err != nil {
 		return err
 	}
-	return c.PostWithHeader(url, header, bytes.NewReader(bys), returnType, &result)
+	return c.PostWithHeader(url, header, bytes.NewReader(bys), returnType, result)
 }
 
+//PostWithHeader issues a POST to the specified URL,
+//with a given header and io.Reader as the request body.
+//stores the result in the value pointed to by result according to the resultType.
 func (c *Client) PostWithHeader(url string, header map[string]string, body io.Reader, returnType int, result interface{}) error {
-	code, _, err := c.request("POST", url, header, body, returnType, &result)
+	code, _, err := c.request("POST", url, header, body, returnType, result)
 	if err != nil {
 		return err
 	}
@@ -117,6 +133,8 @@ func (c *Client) PostWithHeader(url string, header map[string]string, body io.Re
 	return nil
 }
 
+//Download issues a GET to the specified URL,
+//and save the response data to the savePath.
 func (c *Client) Download(url, savePath string) (int64, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
