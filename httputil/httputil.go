@@ -33,9 +33,9 @@ func formatValue(returnType int, raw []byte, v interface{}) (err error) {
 		value := reflect.ValueOf(v).Elem()
 		value.Set(reflect.ValueOf(string(raw)))
 	case ReturnJSON:
-		err = json.Unmarshal(raw, &v)
+		err = json.Unmarshal(raw, v)
 	case ReturnXML:
-		err = xml.Unmarshal(raw, &v)
+		err = xml.Unmarshal(raw, v)
 	default:
 		return fmt.Errorf("unknown return type")
 	}
