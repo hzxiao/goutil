@@ -222,7 +222,7 @@ func PostXML(url string, body interface{}, returnType int, result interface{}) e
 }
 
 func PostWithHeader(url string, header map[string]string, body io.Reader, returnType int, result interface{}) error {
-	return HTTPClient.PostWithHeader(url, header, body, returnType, &result)
+	return HTTPClient.PostWithHeader(url, header, body, returnType, result)
 }
 
 func Download(url, savePath string) (int64, error) {
