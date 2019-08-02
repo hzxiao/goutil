@@ -63,7 +63,7 @@ func (c *Client) Get(url string, returnType int, result interface{}) (err error)
 //GetWithHeader send http request with GET method and given header
 //stores the result in the value pointed to by result according to the resultType.
 func (c *Client) GetWithHeader(url string, header map[string]string, returnType int, result interface{}) (err error) {
-	code, _, err := c.request("GET", url, header, nil, returnType, result)
+	code, _, err := c.Request("GET", url, header, nil, returnType, result)
 	if err != nil {
 		return
 	}
@@ -123,7 +123,7 @@ func (c *Client) PostXML(url string, body interface{}, returnType int, result in
 //with a given header and io.Reader as the request body.
 //stores the result in the value pointed to by result according to the resultType.
 func (c *Client) PostWithHeader(url string, header map[string]string, body io.Reader, returnType int, result interface{}) error {
-	code, _, err := c.request("POST", url, header, body, returnType, result)
+	code, _, err := c.Request("POST", url, header, body, returnType, result)
 	if err != nil {
 		return err
 	}
@@ -167,7 +167,7 @@ func (c *Client) Download(url, savePath string) (int64, error) {
 	return l, err
 }
 
-func (c *Client) request(method, url string, hds map[string]string, data io.Reader, returnType int, result interface{}) (code int, header map[string]string, err error) {
+func (c *Client) Request(method, url string, hds map[string]string, data io.Reader, returnType int, result interface{}) (code int, header map[string]string, err error) {
 	req, err := http.NewRequest(method, url, data)
 	if err != nil {
 		return
@@ -199,6 +199,10 @@ func (c *Client) request(method, url string, hds map[string]string, data io.Read
 	}
 	code = res.StatusCode
 	return
+}
+
+func Request(method, url string, hds map[string]string, data io.Reader, returnType int, result interface{}) (code int, header map[string]string, err error) {
+	return HTTPClient.Request(method, url, hds, data, returnType, result)
 }
 
 func Get(url string, returnType int, v interface{}) (err error) {
